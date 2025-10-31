@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartothèque Territoriale - Grand Cognac</title>
+    <style>
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-slate-500-rgb: 98, 108, 113;
+            --color-bg-1: rgba(59, 130, 246, 0.08);
+            --color-bg-2: rgba(245, 158, 11, 0.08);
+            --color-bg-3: rgba(34, 197, 94, 0.08);
+            --color-bg-4: rgba(239, 68, 68, 0.08);
+            --color-bg-5: rgba(147, 51, 234, 0.08);
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-btn-primary-text: var(--color-cream-50);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-size-base: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 18px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 30px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 550;
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.5;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-gray-400-rgb: 119, 124, 124;
+                --color-teal-300-rgb: 50, 184, 198;
+                --color-gray-300-rgb: 167, 169, 169;
+                --color-gray-200-rgb: 245, 245, 245;
+                --color-bg-1: rgba(29, 78, 216, 0.15);
+                --color-bg-2: rgba(180, 83, 9, 0.15);
+                --color-bg-3: rgba(21, 128, 61, 0.15);
+                --color-bg-4: rgba(185, 28, 28, 0.15);
+                --color-bg-5: rgba(107, 33, 168, 0.15);
+                --color-background: var(--color-charcoal-700);
+                --color-surface: var(--color-charcoal-800);
+                --color-text: var(--color-gray-200);
+                --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+                --color-primary: var(--color-teal-300);
+                --color-primary-hover: var(--color-teal-400);
+                --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+                --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+                --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+                --color-btn-primary-text: var(--color-slate-900);
+                --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-base);
+            line-height: var(--line-height-normal);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-card-border);
+            padding: var(--space-16) var(--space-24);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            line-height: var(--line-height-tight);
+        }
+
+        .header-subtitle {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-32) var(--space-24);
+        }
+
+        /* Filters Section */
+        .filters {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            padding: var(--space-20);
+            margin-bottom: var(--space-32);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-16);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8);
+        }
+
+        .filter-label {
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-base);
+            color: var(--color-text);
+        }
+
+        .filter-select, .filter-input {
+            padding: var(--space-8) var(--space-12);
+            font-size: var(--font-size-base);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            transition: border-color var(--duration-normal) var(--ease-standard);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: 2px solid var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--space-24);
+            margin-bottom: var(--space-32);
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            overflow: hidden;
+            transition: all var(--duration-normal) var(--ease-standard);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card-preview {
+            width: 100%;
+            height: 240px;
+            background: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-placeholder {
+            font-size: 48px;
+            color: var(--color-text-secondary);
+        }
+
+        .card-content {
+            padding: var(--space-16);
+        }
+
+        .card-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            margin-bottom: var(--space-8);
+        }
+
+        .card-meta {
+            display: flex;
+            gap: var(--space-12);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-12);
+        }
+
+        .card-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px var(--space-12);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .card-tag--theme {
+            background: var(--color-bg-1);
+            color: var(--color-primary);
+        }
+
+        .card-tag--type {
+            background: var(--color-bg-2);
+            color: var(--color-orange-500);
+        }
+
+        .card-tag--year {
+            background: var(--color-bg-3);
+            color: var(--color-text-secondary);
+        }
+
+        .card-description {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-16);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-12);
+            border-top: 1px solid var(--color-card-border);
+        }
+
+        .card-date {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8) var(--space-16);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-24);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            max-width: 1200px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: var(--space-24);
+            border-bottom: 1px solid var(--color-card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+        }
+
+        .modal-close {
+            background: var(--color-secondary);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--color-text);
+            transition: background var(--duration-normal) var(--ease-standard);
+        }
+
+        .modal-close:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .modal-body {
+            padding: var(--space-24);
+        }
+
+        .modal-image {
+            width: 100%;
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-24);
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-info {
+            display: grid;
+            gap: var(--space-16);
+        }
+
+        .modal-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .modal-info-label {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+        }
+
+        .modal-info-value {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-base);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-12);
+            margin-top: var(--space-24);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-16);
+            margin-bottom: var(--space-32);
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            padding: var(--space-20);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-8);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: var(--space-32);
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-lg);
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-12);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div>
+                <h1 class="header-title">Cartothèque Territoriale</h1>
+                <p class="header-subtitle">Communauté d'agglomération Grand Cognac</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalMaps">0</div>
+                <div class="stat-label">Cartes disponibles</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalThemes">0</div>
+                <div class="stat-label">Thématiques</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="lastUpdate">2025</div>
+                <div class="stat-label">Dernière mise à jour</div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label" for="themeFilter">Thématique</label>
+                    <select class="filter-select" id="themeFilter">
+                        <option value="">Toutes les thématiques</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label" for="typeFilter">Type de carte</label>
+                    <select class="filter-select" id="typeFilter">
+                        <option value="">Tous les types</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label" for="yearFilter">Année</label>
+                    <select class="filter-select" id="yearFilter">
+                        <option value="">Toutes les années</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label" for="searchInput">Rechercher</label>
+                    <input type="text" class="filter-input" id="searchInput" placeholder="Titre, description...">
+                </div>
+            </div>
+        </div>
+
+        <div class="cards-grid" id="cardsContainer">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            Aucune carte ne correspond à vos critères de recherche.
+        </div>
+    </main>
+
+    <div class="modal" id="mapModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img class="modal-image" id="modalImage" src="" alt="">
+                <div class="modal-info">
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Description</span>
+                        <span class="modal-info-value" id="modalDescription"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Thématique</span>
+                        <span class="modal-info-value" id="modalTheme"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Type de carte</span>
+                        <span class="modal-info-value" id="modalType"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Année de création</span>
+                        <span class="modal-info-value" id="modalYear"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Échelle</span>
+                        <span class="modal-info-value" id="modalScale"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Source des données</span>
+                        <span class="modal-info-value" id="modalSource"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="downloadMap()">
+                        📥 Télécharger (PDF)
+                    </button>
+                    <button class="btn btn-secondary" onclick="printMap()">
+                        🖨️ Imprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Données des cartes - À personnaliser avec vos cartes réelles
+        const mapsData = [
+            {
+                id: 1,
+                title: "Occupation du sol",
+                theme: "Aménagement du territoire",
+                type: "Carte thématique",
+                year: 2025,
+                date: "15 janvier 2025",
+                scale: "1:25 000",
+                description: "Carte d'occupation du sol du territoire de Grand Cognac, distinguant les zones urbaines, agricoles, forestières et naturelles.",
+                source: "IGN, BD TOPO 2025",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e8f4f8' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2321808d' font-size='20' font-family='sans-serif'%3EOccupation du sol%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/occupation-sol.pdf"
+            },
+            {
+                id: 2,
+                title: "Démographie communale",
+                theme: "Population",
+                type: "Carte statistique",
+                year: 2024,
+                date: "10 décembre 2024",
+                scale: "1:50 000",
+                description: "Répartition de la population par commune avec évolution 2019-2024. Densités et projections démographiques.",
+                source: "INSEE, Recensement 2024",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23fff7ed' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a84b2f' font-size='20' font-family='sans-serif'%3EDémographie%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/demographie.pdf"
+            },
+            {
+                id: 3,
+                title: "Réseaux de transport",
+                theme: "Mobilité",
+                type: "Carte d'infrastructure",
+                year: 2025,
+                date: "20 février 2025",
+                scale: "1:25 000",
+                description: "Réseau routier, voies cyclables, transports en commun et zones de stationnement du territoire.",
+                source: "Grand Cognac, OpenStreetMap",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0fdf4' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2321808d' font-size='20' font-family='sans-serif'%3ETransports%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/transports.pdf"
+            },
+            {
+                id: 4,
+                title: "Zones d'activité économique",
+                theme: "Développement économique",
+                type: "Carte thématique",
+                year: 2024,
+                date: "5 novembre 2024",
+                scale: "1:25 000",
+                description: "Localisation des zones d'activité, commerces, industries et services sur le territoire de l'agglomération.",
+                source: "Grand Cognac, CCI Charente",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23fef2f2' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23c0152f' font-size='18' font-family='sans-serif'%3EÉconomie%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/economie.pdf"
+            },
+            {
+                id: 5,
+                title: "Patrimoine et tourisme",
+                theme: "Culture et patrimoine",
+                type: "Carte touristique",
+                year: 2024,
+                date: "18 septembre 2024",
+                scale: "1:50 000",
+                description: "Sites patrimoniaux, monuments historiques, circuits touristiques et lieux d'intérêt culturel.",
+                source: "Office de Tourisme, Monuments Historiques",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23faf5ff' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2321808d' font-size='20' font-family='sans-serif'%3EPatrimoine%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/patrimoine.pdf"
+            },
+            {
+                id: 6,
+                title: "Risques naturels",
+                theme: "Environnement",
+                type: "Carte de prévention",
+                year: 2025,
+                date: "8 mars 2025",
+                scale: "1:25 000",
+                description: "Zones inondables, risques sismiques et autres aléas naturels identifiés sur le territoire.",
+                source: "DREAL, BRGM",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23fff7ed' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%23a84b2f' font-size='20' font-family='sans-serif'%3ERisques%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/risques.pdf"
+            },
+            {
+                id: 7,
+                title: "Équipements publics",
+                theme: "Services publics",
+                type: "Carte d'inventaire",
+                year: 2024,
+                date: "22 octobre 2024",
+                scale: "1:25 000",
+                description: "Localisation des écoles, mairies, équipements sportifs, culturels et de santé.",
+                source: "Grand Cognac, Base Équipements",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e8f4f8' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2321808d' font-size='18' font-family='sans-serif'%3EÉquipements%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/equipements.pdf"
+            },
+            {
+                id: 8,
+                title: "Plan Local d'Urbanisme",
+                theme: "Aménagement du territoire",
+                type: "Carte réglementaire",
+                year: 2025,
+                date: "30 janvier 2025",
+                scale: "1:10 000",
+                description: "Zonage du PLU avec zones urbaines, agricoles, naturelles et règlement d'urbanisme associé.",
+                source: "Grand Cognac, PLU 2025",
+                imageUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0fdf4' width='400' height='300'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='%2321808d' font-size='20' font-family='sans-serif'%3EPLU%3C/text%3E%3C/svg%3E",
+                pdfUrl: "maps/plu.pdf"
+            }
+        ];
+
+        let currentMap = null;
+        let filteredMaps = [...mapsData];
+
+        // Initialisation
+        function init() {
+            populateFilters();
+            updateStats();
+            renderCards(filteredMaps);
+            attachEventListeners();
+        }
+
+        // Remplir les filtres avec les valeurs uniques
+        function populateFilters() {
+            const themes = [...new Set(mapsData.map(m => m.theme))].sort();
+            const types = [...new Set(mapsData.map(m => m.type))].sort();
+            const years = [...new Set(mapsData.map(m => m.year))].sort().reverse();
+
+            const themeFilter = document.getElementById('themeFilter');
+            const typeFilter = document.getElementById('typeFilter');
+            const yearFilter = document.getElementById('yearFilter');
+
+            themes.forEach(theme => {
+                const option = document.createElement('option');
+                option.value = theme;
+                option.textContent = theme;
+                themeFilter.appendChild(option);
+            });
+
+            types.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeFilter.appendChild(option);
+            });
+
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearFilter.appendChild(option);
+            });
+        }
+
+        // Mettre à jour les statistiques
+        function updateStats() {
+            const themes = new Set(filteredMaps.map(m => m.theme));
+            const latestYear = Math.max(...filteredMaps.map(m => m.year));
+
+            document.getElementById('totalMaps').textContent = filteredMaps.length;
+            document.getElementById('totalThemes').textContent = themes.size;
+            document.getElementById('lastUpdate').textContent = latestYear;
+        }
+
+        // Afficher les cartes
+        function renderCards(maps) {
+            const container = document.getElementById('cardsContainer');
+            const noResults = document.getElementById('noResults');
+            
+            container.innerHTML = '';
+            
+            if (maps.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            maps.forEach(map => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(map);
+                
+                card.innerHTML = `
+                    <div class="card-preview">
+                        <img src="${map.imageUrl}" alt="${map.title}">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${map.title}</h3>
+                        <div class="card-meta">
+                            <span class="card-tag card-tag--theme">${map.theme}</span>
+                            <span class="card-tag card-tag--type">${map.type}</span>
+                            <span class="card-tag card-tag--year">${map.year}</span>
+                        </div>
+                        <p class="card-description">${map.description}</p>
+                        <div class="card-footer">
+                            <span class="card-date">Mis à jour le ${map.date}</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Filtrer les cartes
+        function filterMaps() {
+            const themeValue = document.getElementById('themeFilter').value;
+            const typeValue = document.getElementById('typeFilter').value;
+            const yearValue = document.getElementById('yearFilter').value;
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredMaps = mapsData.filter(map => {
+                const matchTheme = !themeValue || map.theme === themeValue;
+                const matchType = !typeValue || map.type === typeValue;
+                const matchYear = !yearValue || map.year.toString() === yearValue;
+                const matchSearch = !searchValue || 
+                    map.title.toLowerCase().includes(searchValue) ||
+                    map.description.toLowerCase().includes(searchValue);
+
+                return matchTheme && matchType && matchYear && matchSearch;
+            });
+
+            updateStats();
+            renderCards(filteredMaps);
+        }
+
+        // Attacher les écouteurs d'événements
+        function attachEventListeners() {
+            document.getElementById('themeFilter').addEventListener('change', filterMaps);
+            document.getElementById('typeFilter').addEventListener('change', filterMaps);
+            document.getElementById('yearFilter').addEventListener('change', filterMaps);
+            document.getElementById('searchInput').addEventListener('input', filterMaps);
+
+            // Fermer la modal en cliquant à l'extérieur
+            document.getElementById('mapModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Ouvrir la modal
+        function openModal(map) {
+            currentMap = map;
+            document.getElementById('modalTitle').textContent = map.title;
+            document.getElementById('modalImage').src = map.imageUrl;
+            document.getElementById('modalImage').alt = map.title;
+            document.getElementById('modalDescription').textContent = map.description;
+            document.getElementById('modalTheme').textContent = map.theme;
+            document.getElementById('modalType').textContent = map.type;
+            document.getElementById('modalYear').textContent = map.year;
+            document.getElementById('modalScale').textContent = map.scale;
+            document.getElementById('modalSource').textContent = map.source;
+            
+            document.getElementById('mapModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fermer la modal
+        function closeModal() {
+            document.getElementById('mapModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentMap = null;
+        }
+
+        // Télécharger la carte
+        function downloadMap() {
+            if (currentMap) {
+                // Simuler le téléchargement - remplacer par le vrai lien PDF
+                alert(`Téléchargement de "${currentMap.title}" en cours...\nURL: ${currentMap.pdfUrl}`);
+                // window.open(currentMap.pdfUrl, '_blank');
+            }
+        }
+
+        // Imprimer la carte
+        function printMap() {
+            if (currentMap) {
+                window.print();
+            }
+        }
+
+        // Lancer l'initialisation au chargement
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
